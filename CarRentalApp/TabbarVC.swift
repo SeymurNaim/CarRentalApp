@@ -11,7 +11,7 @@ class TabbarVC: UITabBarController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .white
+        tabBar.backgroundColor = .white
         
         let homeViewController = HomeVC()
         homeViewController.tabBarItem = UITabBarItem(title: "Vehicles", image: UIImage(systemName: "car"), tag: 0)

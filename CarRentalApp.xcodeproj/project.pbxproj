@@ -12,6 +12,8 @@
 		B85FBADB2BFA5B3E00B757BB /* SearchVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = B85FBADA2BFA5B3E00B757BB /* SearchVC.swift */; };
 		B85FBADD2BFA5B4E00B757BB /* ProfileVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = B85FBADC2BFA5B4E00B757BB /* ProfileVC.swift */; };
 		B85FBAE12BFA5D2900B757BB /* TabbarVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = B85FBAE02BFA5D2900B757BB /* TabbarVC.swift */; };
+		B87D067C2C037598004206F9 /* CarModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = B87D067B2C037598004206F9 /* CarModels.swift */; };
+		B87D067E2C037F62004206F9 /* ApiManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B87D067D2C037F62004206F9 /* ApiManager.swift */; };
 		B8B0987D2BFB17DE00E9F702 /* CategoryCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8B0987C2BFB17DE00E9F702 /* CategoryCell.swift */; };
 		B8B0987F2BFB181300E9F702 /* ContentCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8B0987E2BFB181300E9F702 /* ContentCell.swift */; };
 		FE9D309C2AE3A6040004F029 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE9D309B2AE3A6040004F029 /* AppDelegate.swift */; };
@@ -27,6 +29,8 @@
 		B85FBADA2BFA5B3E00B757BB /* SearchVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchVC.swift; sourceTree = "<group>"; };
 		B85FBADC2BFA5B4E00B757BB /* ProfileVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileVC.swift; sourceTree = "<group>"; };
 		B85FBAE02BFA5D2900B757BB /* TabbarVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabbarVC.swift; sourceTree = "<group>"; };
+		B87D067B2C037598004206F9 /* CarModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CarModels.swift; sourceTree = "<group>"; };
+		B87D067D2C037F62004206F9 /* ApiManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiManager.swift; sourceTree = "<group>"; };
 		B8B0987C2BFB17DE00E9F702 /* CategoryCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryCell.swift; sourceTree = "<group>"; };
 		B8B0987E2BFB181300E9F702 /* ContentCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentCell.swift; sourceTree = "<group>"; };
 		FE9D30982AE3A6040004F029 /* CarRentalApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CarRentalApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -81,6 +85,8 @@
 				FE9D309B2AE3A6040004F029 /* AppDelegate.swift */,
 				FE9D309D2AE3A6040004F029 /* SceneDelegate.swift */,
 				B85FBAD42BF8A26700B757BB /* LoginVC.swift */,
+				B87D067B2C037598004206F9 /* CarModels.swift */,
+				B87D067D2C037F62004206F9 /* ApiManager.swift */,
 				B8B0987B2BFB179000E9F702 /* Home */,
 				B85FBADA2BFA5B3E00B757BB /* SearchVC.swift */,
 				B85FBADC2BFA5B4E00B757BB /* ProfileVC.swift */,
@@ -167,9 +173,11 @@
 				B85FBAE12BFA5D2900B757BB /* TabbarVC.swift in Sources */,
 				FE9D30A62AE3A6040004F029 /* CarRentalApp.xcdatamodeld in Sources */,
 				B85FBAD92BFA5B3300B757BB /* HomeVC.swift in Sources */,
+				B87D067E2C037F62004206F9 /* ApiManager.swift in Sources */,
 				B85FBADD2BFA5B4E00B757BB /* ProfileVC.swift in Sources */,
 				B8B0987D2BFB17DE00E9F702 /* CategoryCell.swift in Sources */,
 				B85FBAD52BF8A26700B757BB /* LoginVC.swift in Sources */,
+				B87D067C2C037598004206F9 /* CarModels.swift in Sources */,
 				B8B0987F2BFB181300E9F702 /* ContentCell.swift in Sources */,
 				FE9D309E2AE3A6040004F029 /* SceneDelegate.swift in Sources */,
 				B85FBADB2BFA5B3E00B757BB /* SearchVC.swift in Sources */,

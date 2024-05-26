@@ -11,6 +11,10 @@ class HomeVC: UIViewController {
 
     let searchBar = UISearchBar()
     let collectionView: UICollectionView
+    
+    var selectedIndexPath: IndexPath?
+    let manager = ApiManager()
+    var datas: [Categories] = []
 
     init() {
         let layout = HomeVC.createLayout()
@@ -24,11 +28,22 @@ class HomeVC: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        view.backgroundColor = .white
         title = "Car Rental"
-        view.backgroundColor = .systemGray6
         setupSearchBar()
         setupCollectionView()
         setupConstraints()
+        manager.fetchData { fetchedPosts, error in
+            if let fetchedPosts = fetchedPosts {
+                self.datas = fetchedPosts
+                DispatchQueue.main.async {
+                    self.collectionView.reloadData()
+                    print(self.datas)
+                }
+            } else if let error = error {
+                print(error.localizedDescription)
+            }
+        }
     }
 
     private func setupSearchBar() {
@@ -40,7 +55,7 @@ class HomeVC: UIViewController {
     private func setupCollectionView() {
         collectionView.dataSource = self
         collectionView.delegate = self
-        collectionView.backgroundColor = .clear
+        collectionView.backgroundColor = .systemGray6
         collectionView.register(CategoryCell.self, forCellWithReuseIdentifier: "CategoryCell")
         collectionView.register(ContentCell.self, forCellWithReuseIdentifier: "ContentCell")
         collectionView.translatesAutoresizingMaskIntoConstraints = false
@@ -63,7 +78,6 @@ class HomeVC: UIViewController {
     static func createLayout() -> UICollectionViewLayout {
         return UICollectionViewCompositionalLayout { sectionIndex, layoutEnvironment in
             if sectionIndex == 0 {
-                // categories
                 let itemSize = NSCollectionLayoutSize(widthDimension: .absolute(140), heightDimension: .absolute(180))
                 let item = NSCollectionLayoutItem(layoutSize: itemSize)
 
@@ -77,7 +91,6 @@ class HomeVC: UIViewController {
 
                 return section
             } else {
-                // cars
                 let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .estimated(300))
                 let item = NSCollectionLayoutItem(layoutSize: itemSize)
 
@@ -96,32 +109,47 @@ class HomeVC: UIViewController {
 
 extension HomeVC: UICollectionViewDataSource, UICollectionViewDelegate {
     func numberOfSections(in collectionView: UICollectionView) -> Int {
-        return 2 // first for categories, second for cars
+        return 2
     }
-
+    
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         if section == 0 {
-            return 3 // category
+            return datas.count
         } else {
-            return 10 // car
+            return 0
         }
     }
-
+    
+    
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         if indexPath.section == 0 {
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "CategoryCell", for: indexPath) as! CategoryCell
             cell.layer.cornerRadius = 20
             cell.categoryImage.image = UIImage(named: "car_\(indexPath.row + 1)")
-            cell.categoryLabel.text = "Category \(indexPath.row + 1)"
+            cell.categoryLabel.text = "\(datas[indexPath.item].name)"
+            cell.backgroundColor = (indexPath == selectedIndexPath) ? .blue : .white
             return cell
         } else {
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "ContentCell", for: indexPath) as! ContentCell
             cell.layer.cornerRadius = 20
             cell.carImage.image = UIImage(named: "car_\(indexPath.row + 1)")
-            cell.carNameLabel.text = "Car \(indexPath.row + 1)"
+            cell.carNameLabel.text = "\(datas[indexPath.row].cars[indexPath.item].brand)"
             cell.carPriceLabel.text = "$\(indexPath.row * 100 + 50) / month"
             return cell
         }
+    }
+
+
+    
+
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        if let previousIndexPath = selectedIndexPath {
+            selectedIndexPath = nil
+            collectionView.reloadItems(at: [previousIndexPath])
+        }
+        
+        selectedIndexPath = indexPath
+        collectionView.reloadItems(at: [indexPath])
     }
 }
 
