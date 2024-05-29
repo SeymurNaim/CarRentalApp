@@ -7,6 +7,7 @@
 
 import UIKit
 
+
 class HomeVC: UIViewController {
 
     let searchBar = UISearchBar()
@@ -15,6 +16,7 @@ class HomeVC: UIViewController {
     var selectedIndexPath: IndexPath?
     let manager = ApiManager()
     var datas: [Categories] = []
+    var filteredCategories: [Categories] = []
 
     init() {
         let layout = HomeVC.createLayout()
@@ -33,34 +35,41 @@ class HomeVC: UIViewController {
         setupSearchBar()
         setupCollectionView()
         setupConstraints()
+        searchBar.delegate = self
         manager.fetchData { fetchedPosts, error in
             if let fetchedPosts = fetchedPosts {
                 self.datas = fetchedPosts
+                self.filteredCategories = fetchedPosts
                 DispatchQueue.main.async {
+                    if !self.filteredCategories.isEmpty {
+                        self.selectedIndexPath = IndexPath(item: 0, section: 0)
+                    }
                     self.collectionView.reloadData()
-                    print(self.datas)
+                    self.collectionView.reloadSections(IndexSet(integer: 1))
                 }
             } else if let error = error {
                 print(error.localizedDescription)
             }
         }
     }
-
+    
     private func setupSearchBar() {
         searchBar.placeholder = "Search for a car"
         searchBar.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(searchBar)
     }
-
+    
     private func setupCollectionView() {
         collectionView.dataSource = self
         collectionView.delegate = self
         collectionView.backgroundColor = .systemGray6
         collectionView.register(CategoryCell.self, forCellWithReuseIdentifier: "CategoryCell")
         collectionView.register(ContentCell.self, forCellWithReuseIdentifier: "ContentCell")
+        collectionView.register(HeaderView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: "HeaderView")
         collectionView.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(collectionView)
     }
+
 
     private func setupConstraints() {
         NSLayoutConstraint.activate([
@@ -91,21 +100,27 @@ class HomeVC: UIViewController {
 
                 return section
             } else {
-                let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .estimated(300))
+                let itemSize = NSCollectionLayoutSize(widthDimension: .absolute(340), heightDimension: .absolute(300))
                 let item = NSCollectionLayoutItem(layoutSize: itemSize)
 
-                let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .estimated(300))
+                let groupSize = NSCollectionLayoutSize(widthDimension: .absolute(140), heightDimension: .absolute(300))
                 let group = NSCollectionLayoutGroup.vertical(layoutSize: groupSize, subitems: [item])
 
                 let section = NSCollectionLayoutSection(group: group)
-                section.contentInsets = NSDirectionalEdgeInsets(top: 16, leading: 16, bottom: 0, trailing: 16)
-                section.interGroupSpacing = 16
+                section.contentInsets = NSDirectionalEdgeInsets(top: 24, leading: 26, bottom: 24, trailing: 26)
+                section.interGroupSpacing = 26
+                
+                let headerSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .absolute(64))
+                let header = NSCollectionLayoutBoundarySupplementaryItem(layoutSize: headerSize, elementKind: UICollectionView.elementKindSectionHeader, alignment: .top)
+                section.boundarySupplementaryItems = [header]
 
                 return section
             }
         }
     }
 }
+
+
 
 extension HomeVC: UICollectionViewDataSource, UICollectionViewDelegate {
     func numberOfSections(in collectionView: UICollectionView) -> Int {
@@ -114,46 +129,99 @@ extension HomeVC: UICollectionViewDataSource, UICollectionViewDelegate {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         if section == 0 {
-            return datas.count
+            return filteredCategories.count
         } else {
-            return 0
+            if let selectedIndexPath = selectedIndexPath {
+                return filteredCategories[selectedIndexPath.item].cars.count
+            } else {
+                return 0
+            }
         }
     }
-    
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         if indexPath.section == 0 {
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "CategoryCell", for: indexPath) as! CategoryCell
             cell.layer.cornerRadius = 20
             cell.categoryImage.image = UIImage(named: "car_\(indexPath.row + 1)")
-            cell.categoryLabel.text = "\(datas[indexPath.item].name)"
-            cell.backgroundColor = (indexPath == selectedIndexPath) ? .blue : .white
+            cell.categoryLabel.text = "\(filteredCategories[indexPath.item].name)"
+            cell.carCountLabel.text = "\(filteredCategories[indexPath.item].cars.count)"
+            if indexPath == selectedIndexPath {
+                cell.backgroundColor = .blue
+                cell.categoryLabel.textColor = .white
+                cell.carCountLabel.textColor = .white
+            } else {
+                cell.backgroundColor = .white
+                cell.categoryLabel.textColor = .black
+                cell.carCountLabel.textColor = .black
+            }
             return cell
         } else {
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "ContentCell", for: indexPath) as! ContentCell
             cell.layer.cornerRadius = 20
-            cell.carImage.image = UIImage(named: "car_\(indexPath.row + 1)")
-            cell.carNameLabel.text = "\(datas[indexPath.row].cars[indexPath.item].brand)"
-            cell.carPriceLabel.text = "$\(indexPath.row * 100 + 50) / month"
+            
+            if let selectedIndexPath = selectedIndexPath {
+                let car = filteredCategories[selectedIndexPath.item].cars[indexPath.item]
+                cell.configureCell(withImage: "\(car.image)")
+                cell.carNameLabel.text = car.brand
+                cell.carModelLabel.text = car.model
+                cell.carEngineLabel.text = car.engine
+                cell.carPriceLabel.text = "$\(indexPath.row * 100 + 50)"
+            }
             return cell
         }
     }
-
-
     
-
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        if let previousIndexPath = selectedIndexPath {
-            selectedIndexPath = nil
-            collectionView.reloadItems(at: [previousIndexPath])
+        if indexPath.section == 0 {
+            if selectedIndexPath == indexPath {
+                selectedIndexPath = nil
+            } else {
+                selectedIndexPath = indexPath
+            }
+            collectionView.reloadData()
+            collectionView.reloadSections(IndexSet(integer: 1))
         }
-        
-        selectedIndexPath = indexPath
-        collectionView.reloadItems(at: [indexPath])
+    }
+
+    func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
+        if kind == UICollectionView.elementKindSectionHeader, indexPath.section == 1 {
+            let header = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: "HeaderView", for: indexPath) as! HeaderView
+            return header
+        }
+        return UICollectionReusableView()
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
+        if section == 1 {
+            return CGSize(width: collectionView.bounds.width, height: 50)
+        } else {
+            return CGSize.zero
+        }
     }
 }
 
 
+extension HomeVC: UISearchBarDelegate {
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        if searchText.isEmpty {
+            filteredCategories = datas
+        } else {
+            filteredCategories = datas.map { category in
+                var newCategory = category
+                newCategory.cars = category.cars.filter { $0.brand.lowercased().contains(searchText.lowercased()) }
+                return newCategory
+            }.filter { !$0.cars.isEmpty }
+        }
+        if !filteredCategories.isEmpty {
+            selectedIndexPath = IndexPath(item: 0, section: 0)
+        } else {
+            selectedIndexPath = nil
+        }
+        collectionView.reloadData()
+        collectionView.reloadSections(IndexSet(integer: 1))
+    }
+}
 
 
 #Preview() {

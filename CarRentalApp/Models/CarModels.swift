@@ -9,7 +9,7 @@ import Foundation
 
 struct Categories: Codable {
     let name: String
-    let cars: [Cars]
+    var cars: [Cars]
     
 }
 

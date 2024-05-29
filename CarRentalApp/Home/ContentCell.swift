@@ -7,33 +7,14 @@
 
 import UIKit
 
-//class ContentCell: UICollectionViewCell {
-//    override init(frame: CGRect) {
-//        super.init(frame: frame)
-//        setupCell()
-//    }
-//
-//    required init?(coder: NSCoder) {
-//        fatalError("init(coder:) has not been implemented")
-//    }
-//
-//    private func setupCell() {
-//        backgroundColor = .white
-//        layer.cornerRadius = 20
-//
-//        setupViews()
-//    }
-//
-//    private func setupViews() {
-//        
-//    }
-//}
-
 
 class ContentCell: UICollectionViewCell {
     let carImage = UIImageView()
     let carNameLabel = UILabel()
+    let carModelLabel = UILabel()
     let carPriceLabel = UILabel()
+    let carEngineLabel = UILabel()
+    
 
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -46,38 +27,73 @@ class ContentCell: UICollectionViewCell {
     }
 
     private func setupViews() {
+        carPriceLabel.numberOfLines = 0
+        carNameLabel.font = UIFont.systemFont(ofSize: 34, weight: .black)
+        carNameLabel.adjustsFontSizeToFitWidth = true
+        carPriceLabel.font = UIFont.systemFont(ofSize: 36, weight: .light)
+        carPriceLabel.textColor = .blue
+        carModelLabel.textColor = .systemGray
+        carEngineLabel.textAlignment = .right
         carImage.translatesAutoresizingMaskIntoConstraints = false
         carNameLabel.translatesAutoresizingMaskIntoConstraints = false
         carPriceLabel.translatesAutoresizingMaskIntoConstraints = false
+        carModelLabel.translatesAutoresizingMaskIntoConstraints = false
+        carEngineLabel.translatesAutoresizingMaskIntoConstraints = false
 
         contentView.addSubview(carImage)
         contentView.addSubview(carNameLabel)
         contentView.addSubview(carPriceLabel)
+        contentView.addSubview(carModelLabel)
+        contentView.addSubview(carEngineLabel)
+        
+        let engineTitleLabel = UILabel()
+        engineTitleLabel.text = "Engine:"
+        engineTitleLabel.font = UIFont.systemFont(ofSize: 16, weight: .regular)
+        engineTitleLabel.translatesAutoresizingMaskIntoConstraints = false
+        contentView.addSubview(engineTitleLabel)
+        
+        let priceTitleLabel = UILabel()
+        priceTitleLabel.text = "/ month"
+        priceTitleLabel.textColor = .systemGray
+        priceTitleLabel.font = UIFont.systemFont(ofSize: 16, weight: .regular)
+        priceTitleLabel.translatesAutoresizingMaskIntoConstraints = false
+        contentView.addSubview(priceTitleLabel)
 
         NSLayoutConstraint.activate([
-            carImage.topAnchor.constraint(equalTo: contentView.topAnchor),
-            carImage.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
-            carImage.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
+            carImage.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
+            carImage.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 12),
+            carImage.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -12),
             carImage.heightAnchor.constraint(equalToConstant: 180),
 
-            carNameLabel.topAnchor.constraint(equalTo: carImage.bottomAnchor, constant: 8),
-            carNameLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 8),
-            carNameLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -8),
+            carNameLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 28),
+            carNameLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 28),
+            carNameLabel.widthAnchor.constraint(equalToConstant: 180),
+            carNameLabel.heightAnchor.constraint(equalToConstant: 40),
+            
+            carModelLabel.topAnchor.constraint(equalTo: carNameLabel.bottomAnchor),
+            carModelLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 28),
+            carModelLabel.widthAnchor.constraint(equalToConstant: 64),
+            carModelLabel.heightAnchor.constraint(equalToConstant: 32),
+            
+            carEngineLabel.topAnchor.constraint(equalTo: carModelLabel.bottomAnchor),
+            carEngineLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 28),
+            carEngineLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -28),
 
-            carPriceLabel.topAnchor.constraint(equalTo: carNameLabel.bottomAnchor, constant: 4),
-            carPriceLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 8),
-            carPriceLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -8),
-            carPriceLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -8)
+            carPriceLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 28),
+            carPriceLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -28),
+            carPriceLabel.heightAnchor.constraint(equalToConstant: 44),
+            
+            engineTitleLabel.topAnchor.constraint(equalTo: carModelLabel.bottomAnchor),
+            engineTitleLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 28),
+            
+            priceTitleLabel.topAnchor.constraint(equalTo: carPriceLabel.bottomAnchor),
+            priceTitleLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -28)
+            
         ])
-
-//        contentView.layer.cornerRadius = 20
-//        contentView.layer.masksToBounds = true
-//        contentView.layer.borderColor = UIColor.lightGray.cgColor
-//        contentView.layer.borderWidth = 0.5
-//        contentView.layer.shadowColor = UIColor.black.cgColor
-//        contentView.layer.shadowOpacity = 0.1
-//        contentView.layer.shadowOffset = CGSize(width: 0, height: 2)
-//        contentView.layer.shadowRadius = 4
+    }
+    
+    func configureCell(withImage image: String) {
+        showImage(image: image, imageView: carImage)
     }
 }
 

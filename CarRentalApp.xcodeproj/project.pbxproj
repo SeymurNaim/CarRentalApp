@@ -12,10 +12,13 @@
 		B85FBADB2BFA5B3E00B757BB /* SearchVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = B85FBADA2BFA5B3E00B757BB /* SearchVC.swift */; };
 		B85FBADD2BFA5B4E00B757BB /* ProfileVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = B85FBADC2BFA5B4E00B757BB /* ProfileVC.swift */; };
 		B85FBAE12BFA5D2900B757BB /* TabbarVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = B85FBAE02BFA5D2900B757BB /* TabbarVC.swift */; };
+		B86973D12C07249600963F95 /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = B86973D02C07249600963F95 /* Kingfisher */; };
+		B86973D42C0724F300963F95 /* UIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B86973D32C0724F300963F95 /* UIView.swift */; };
 		B87D067C2C037598004206F9 /* CarModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = B87D067B2C037598004206F9 /* CarModels.swift */; };
 		B87D067E2C037F62004206F9 /* ApiManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B87D067D2C037F62004206F9 /* ApiManager.swift */; };
 		B8B0987D2BFB17DE00E9F702 /* CategoryCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8B0987C2BFB17DE00E9F702 /* CategoryCell.swift */; };
 		B8B0987F2BFB181300E9F702 /* ContentCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8B0987E2BFB181300E9F702 /* ContentCell.swift */; };
+		B8F9FC1E2C074AE7004CBD09 /* HeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8F9FC1D2C074AE7004CBD09 /* HeaderView.swift */; };
 		FE9D309C2AE3A6040004F029 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE9D309B2AE3A6040004F029 /* AppDelegate.swift */; };
 		FE9D309E2AE3A6040004F029 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE9D309D2AE3A6040004F029 /* SceneDelegate.swift */; };
 		FE9D30A62AE3A6040004F029 /* CarRentalApp.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = FE9D30A42AE3A6040004F029 /* CarRentalApp.xcdatamodeld */; };
@@ -29,10 +32,12 @@
 		B85FBADA2BFA5B3E00B757BB /* SearchVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchVC.swift; sourceTree = "<group>"; };
 		B85FBADC2BFA5B4E00B757BB /* ProfileVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileVC.swift; sourceTree = "<group>"; };
 		B85FBAE02BFA5D2900B757BB /* TabbarVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabbarVC.swift; sourceTree = "<group>"; };
+		B86973D32C0724F300963F95 /* UIView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIView.swift; sourceTree = "<group>"; };
 		B87D067B2C037598004206F9 /* CarModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CarModels.swift; sourceTree = "<group>"; };
 		B87D067D2C037F62004206F9 /* ApiManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiManager.swift; sourceTree = "<group>"; };
 		B8B0987C2BFB17DE00E9F702 /* CategoryCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryCell.swift; sourceTree = "<group>"; };
 		B8B0987E2BFB181300E9F702 /* ContentCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentCell.swift; sourceTree = "<group>"; };
+		B8F9FC1D2C074AE7004CBD09 /* HeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeaderView.swift; sourceTree = "<group>"; };
 		FE9D30982AE3A6040004F029 /* CarRentalApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CarRentalApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		FE9D309B2AE3A6040004F029 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		FE9D309D2AE3A6040004F029 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -47,12 +52,22 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B86973D12C07249600963F95 /* Kingfisher in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		B86973D22C0724DE00963F95 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				B86973D32C0724F300963F95 /* UIView.swift */,
+				B8F9FC1D2C074AE7004CBD09 /* HeaderView.swift */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
 		B8B0987B2BFB179000E9F702 /* Home */ = {
 			isa = PBXGroup;
 			children = (
@@ -61,6 +76,15 @@
 				B8B0987E2BFB181300E9F702 /* ContentCell.swift */,
 			);
 			path = Home;
+			sourceTree = "<group>";
+		};
+		B8F9FC1F2C075291004CBD09 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				B87D067D2C037F62004206F9 /* ApiManager.swift */,
+				B87D067B2C037598004206F9 /* CarModels.swift */,
+			);
+			path = Models;
 			sourceTree = "<group>";
 		};
 		FE9D308F2AE3A6040004F029 = {
@@ -85,8 +109,8 @@
 				FE9D309B2AE3A6040004F029 /* AppDelegate.swift */,
 				FE9D309D2AE3A6040004F029 /* SceneDelegate.swift */,
 				B85FBAD42BF8A26700B757BB /* LoginVC.swift */,
-				B87D067B2C037598004206F9 /* CarModels.swift */,
-				B87D067D2C037F62004206F9 /* ApiManager.swift */,
+				B86973D22C0724DE00963F95 /* Extensions */,
+				B8F9FC1F2C075291004CBD09 /* Models */,
 				B8B0987B2BFB179000E9F702 /* Home */,
 				B85FBADA2BFA5B3E00B757BB /* SearchVC.swift */,
 				B85FBADC2BFA5B4E00B757BB /* ProfileVC.swift */,
@@ -115,6 +139,9 @@
 			dependencies = (
 			);
 			name = CarRentalApp;
+			packageProductDependencies = (
+				B86973D02C07249600963F95 /* Kingfisher */,
+			);
 			productName = CarRentalApp;
 			productReference = FE9D30982AE3A6040004F029 /* CarRentalApp.app */;
 			productType = "com.apple.product-type.application";
@@ -143,6 +170,9 @@
 				Base,
 			);
 			mainGroup = FE9D308F2AE3A6040004F029;
+			packageReferences = (
+				B86973CF2C07249600963F95 /* XCRemoteSwiftPackageReference "Kingfisher" */,
+			);
 			productRefGroup = FE9D30992AE3A6040004F029 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -179,8 +209,10 @@
 				B85FBAD52BF8A26700B757BB /* LoginVC.swift in Sources */,
 				B87D067C2C037598004206F9 /* CarModels.swift in Sources */,
 				B8B0987F2BFB181300E9F702 /* ContentCell.swift in Sources */,
+				B86973D42C0724F300963F95 /* UIView.swift in Sources */,
 				FE9D309E2AE3A6040004F029 /* SceneDelegate.swift in Sources */,
 				B85FBADB2BFA5B3E00B757BB /* SearchVC.swift in Sources */,
+				B8F9FC1E2C074AE7004CBD09 /* HeaderView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -393,6 +425,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		B86973CF2C07249600963F95 /* XCRemoteSwiftPackageReference "Kingfisher" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/onevcat/Kingfisher.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 7.11.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		B86973D02C07249600963F95 /* Kingfisher */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = B86973CF2C07249600963F95 /* XCRemoteSwiftPackageReference "Kingfisher" */;
+			productName = Kingfisher;
+		};
+/* End XCSwiftPackageProductDependency section */
 
 /* Begin XCVersionGroup section */
 		FE9D30A42AE3A6040004F029 /* CarRentalApp.xcdatamodeld */ = {
