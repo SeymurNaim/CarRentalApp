@@ -56,6 +56,10 @@ class CategoryCell: UICollectionViewCell {
 
         contentView.clipsToBounds = false
     }
+    
+    func configure() {
+        
+    }
 }
 
 #Preview() {

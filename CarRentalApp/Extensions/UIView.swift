@@ -9,18 +9,12 @@ import UIKit
 import Kingfisher
 
 
+
 func showImage(image: String, imageView: UIImageView) {
     if let url = URL(string: image) {
-        let task = URLSession.shared.dataTask(with: url) { data, response, error in
-            guard let data = data, error == nil else {
-                print(error?.localizedDescription ?? "")
-                return
-            }
-            DispatchQueue.main.async {
-                imageView.image = UIImage(data: data)
-            }
-        }
-        task.resume()
+        imageView.kf.setImage(with: url)
+    } else {
+        print("Invalid URL string")
     }
 }
 
